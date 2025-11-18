@@ -4,8 +4,8 @@ const searchInput=document.querySelector(".search-container input")
 const themeChanger=document.querySelector(".theme-changer")
 
 let allCountriesData
+fetch("https://restcountries.com/v3.1/all?fields=name,region,flags,population,capital")
 
-fetch("https://restcountries.com/v3.1/all")
   .then((res) => res.json())
   .then((data)=>{
     renderCountries(data)
