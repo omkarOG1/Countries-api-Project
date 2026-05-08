@@ -62,23 +62,26 @@ fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
     }
   });
 
+const getTheme = localStorage.getItem("PageTheme");
+
+if (getTheme === "DARK") {
+  document.body.classList.add("dark");
+  themeChanger.innerHTML = `<i class="fa-regular fa-sun"></i> Light mode`;
+} else {
+  document.body.classList.remove("dark");
+  themeChanger.innerHTML = `<i class="fa-regular fa-moon"></i> Dark mode`;
+}
+
 themeChanger.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 
-  if (document.body.classList.contains("dark")) {
-    themeChanger.innerHTML = `<i class="fa-regular fa-sun"></i>  Light mode</p>`;
+  const isDark = document.body.classList.contains("dark");
+
+  if (isDark) {
+    themeChanger.innerHTML = `<i class="fa-regular fa-sun"></i> Light mode`;
+    localStorage.setItem("PageTheme", "DARK");
   } else {
-    themeChanger.innerHTML = `<i class="fa-regular fa-moon"></i>  Dark mode</p>`;
+    themeChanger.innerHTML = `<i class="fa-regular fa-moon"></i> Dark mode`;
+    localStorage.setItem("PageTheme", "LIGHT");
   }
-
-  localStorage.setItem("PageTheme", JSON.stringify(theme));
 });
-
-let getTheme = JSON.parse(localStorage.getItem("PageTheme"));
-
-if (getTheme === "DARK") {
-  document.body.classList.toggle("dark");
-  themeChanger.innerHTML = `<i class="fa-regular fa-sun"></i>  Light mode</p>`;
-} else {
-  themeChanger.innerHTML = `<i class="fa-regular fa-moon"></i>  Dark mode</p>`;
-}
